@@ -1,18 +1,11 @@
 import numpy as np
 from sklearn.neural_network import MLPClassifier
-from sklearn.naive_bayes import GaussianNB
 from strlearn.streams import StreamGenerator
-from sklearn.metrics import balanced_accuracy_score
-import matplotlib.pyplot as plt
-from scipy.ndimage import gaussian_filter1d
-import time
-from scipy.stats import ttest_ind
-from sklearn.base import clone
 from methods import certaintyDD
 from tqdm import tqdm
 
-_n_chunks = [200, 400, 600]
-_chunk_size = [100, 200, 400, 800]
+_n_chunks = [200, 400]
+_chunk_size = [100, 200, 400]
 _n_drifts = [3,5,10]
 _n_features = [10,20,30]
 _n_classes = [2,5,10]
