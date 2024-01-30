@@ -43,19 +43,20 @@ detected = True
 
 prevs = []
 
-alpha=0.01
+alpha=0.001
 
 for chunk_id in range(n_chunks):
     X, y = stream.get_chunk()
     
     # test
     if chunk_id>0:
-        ps = np.max(clf.predict_proba(X), axis=1)    
+        errs = (clf.predict(X) != y).astype(int)
         bac = balanced_accuracy_score(y, clf.predict(X))
+    
         
         if len(sup)>0:
             # test hipotez
-            stat, p_val = ttest_ind(ps, np.array(prevs).flatten())     
+            stat, p_val = ttest_ind(errs, np.array(prevs).flatten())     
             p_vals.append(p_val)   
             print(stat,p_val)
 
@@ -65,11 +66,11 @@ for chunk_id in range(n_chunks):
                 prevs = []
             else:
                 detected = False
-                prevs.append(ps)
+                prevs.append(errs)
      
         res.append(bac)
         # res_observed.append(bac_observed)
-        sup.append(np.mean(ps))
+        sup.append(np.mean(errs))
         
         # time.sleep(1)
         
