@@ -8,16 +8,15 @@ from scipy.ndimage import gaussian_filter1d
 import time
 from scipy.stats import ttest_ind
 
-## Support nie uśredniony tylko dla wsadu + test hipotez || proby niezal.
-## ttest ind
 
+## Klasyfikator szkolony do określonego MPS
 
 
 n_chunks = 200
-epochs = 150
-
 real_drifts = np.linspace(0,n_chunks,6)[:-1]
 real_drifts += (real_drifts[1]/2)
+
+mps_th=0.9
 
 
 stream = StreamGenerator(n_chunks=n_chunks,
@@ -30,7 +29,7 @@ stream = StreamGenerator(n_chunks=n_chunks,
                          n_repeated=0, 
                          concept_sigmoid_spacing=500)
 
-clf = MLPClassifier(hidden_layer_sizes=(10,10,10))
+clf = MLPClassifier(hidden_layer_sizes=(10))
 # clf = GaussianNB()
 
 res = []
@@ -77,17 +76,21 @@ for chunk_id in range(n_chunks):
     print(drifts, detected)
     if detected==True or chunk_id<1:
         print('TRAINING', drifts)
-        [clf.partial_fit(X, y, np.arange(2)) for e in range(epochs)]
+        while(1):
+            clf.partial_fit(X, y, np.arange(2))
+            mps = np.mean(np.max(clf.predict_proba(X), axis=1))
+            print(mps)
+            if mps>=mps_th:
+                break
     
 
 print(drifts)
 p_vals = np.array(p_vals)
 
-s = 0.1
+s = 1
 fig, ax = plt.subplots(1,1,figsize=(10,5))
 ax.plot(gaussian_filter1d(res, s), label='BAC', color='tomato', ls=':')
-# ax.plot(gaussian_filter1d(res_observed, s), label='BAC observed', color='tomato')
-ax.plot(gaussian_filter1d(sup, s), label='MPS', color='cornflowerblue')
+ax.plot(sup, label='MPS', color='cornflowerblue')
 ax.scatter(np.arange(len(p_vals)), p_vals, label='p value', color='cornflowerblue', s=10)
 ax.vlines(real_drifts,0,1, color='red')
 ax.set_xticks(drifts)

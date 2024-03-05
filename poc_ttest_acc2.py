@@ -1,3 +1,5 @@
+## Tutaj label access próbek brane pod uwagę!
+
 import numpy as np
 from sklearn.neural_network import MLPClassifier
 from sklearn.naive_bayes import GaussianNB
@@ -12,7 +14,6 @@ from scipy.stats import ttest_ind
 ## ttest ind
 
 
-
 n_chunks = 200
 epochs = 150
 
@@ -21,11 +22,11 @@ real_drifts += (real_drifts[1]/2)
 
 
 stream = StreamGenerator(n_chunks=n_chunks,
-                         chunk_size=500,
+                         chunk_size=300,
                          n_drifts=5,
-                         n_classes=2,
-                         n_features=25,
-                         n_informative=5,
+                         n_classes=5,
+                         n_features=10,
+                         n_informative=10,
                          n_redundant=0,
                          n_repeated=0, 
                          concept_sigmoid_spacing=500)
@@ -43,19 +44,23 @@ detected = True
 
 prevs = []
 
-alpha=0.01
+alpha=0.001
+label_acces = 0.1
 
 for chunk_id in range(n_chunks):
     X, y = stream.get_chunk()
     
     # test
     if chunk_id>0:
-        ps = np.max(clf.predict_proba(X), axis=1)    
+        accessed = np.random.choice(len(y), size=int(label_acces*len(y)), replace=False)
+        errs = (clf.predict(X[accessed]) != y[accessed]).astype(int)
+        print(errs.shape)
         bac = balanced_accuracy_score(y, clf.predict(X))
+    
         
         if len(sup)>0:
             # test hipotez
-            stat, p_val = ttest_ind(ps, np.array(prevs).flatten())     
+            stat, p_val = ttest_ind(errs, np.array(prevs).flatten())     
             p_vals.append(p_val)   
             print(stat,p_val)
 
@@ -65,11 +70,11 @@ for chunk_id in range(n_chunks):
                 prevs = []
             else:
                 detected = False
-                prevs.append(ps)
+                prevs.append(errs)
      
         res.append(bac)
         # res_observed.append(bac_observed)
-        sup.append(np.mean(ps))
+        sup.append(np.mean(errs))
         
         # time.sleep(1)
         
@@ -77,7 +82,7 @@ for chunk_id in range(n_chunks):
     print(drifts, detected)
     if detected==True or chunk_id<1:
         print('TRAINING', drifts)
-        [clf.partial_fit(X, y, np.arange(2)) for e in range(epochs)]
+        [clf.partial_fit(X, y, np.arange(5)) for e in range(epochs)]
     
 
 print(drifts)

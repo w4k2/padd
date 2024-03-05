@@ -5,22 +5,25 @@ from tqdm import tqdm
 from sklearn.metrics import balanced_accuracy_score
 
 class Protocol:
-    def __init__(self, metrics=(accuracy_score, balanced_accuracy_score), verbose=False):
+    def __init__(self, 
+                 n_test = 10,
+                 metrics=(accuracy_score, balanced_accuracy_score), 
+                 verbose=True):
+
+        self.n_test = n_test
+        
         if isinstance(metrics, (list, tuple)):
             self.metrics = metrics
         else:
             self.metrics = [metrics]
         self.verbose = verbose
+        
+        self.train_chunks = []
 
     def process(self, stream, clfs):
-        """
-        Perform learning procedure on data stream.
-
-        :param stream: Data stream as an object
-        :type stream: object
-        :param clfs: scikit-learn estimator of list of scikit-learn estimators.
-        :type clfs: tuple or function
-        """
+        
+        counter = 0
+        
         # Verify if pool of classifiers or one
         if isinstance(clfs, ClassifierMixin):
             self.clfs_ = [clfs]
@@ -37,6 +40,7 @@ class Protocol:
 
         if self.verbose:
             pbar = tqdm(total=stream.n_chunks)
+            
         while True:
             X, y = stream.get_chunk()
             if self.verbose:
@@ -51,8 +55,12 @@ class Protocol:
                         metric(y, y_pred) for metric in self.metrics
                     ]
 
-            # Train
-            [clf.partial_fit(X, y, self.stream_.classes_) for clf in self.clfs_]
+            if counter%self.n_test==0:
+                # Train
+                [clf.partial_fit(X, y, self.stream_.classes_) for clf in self.clfs_]
+                self.train_chunks.append(counter)
+                
+            counter += 1
 
             if stream.is_dry():
                 break

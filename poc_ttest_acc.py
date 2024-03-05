@@ -11,8 +11,6 @@ from scipy.stats import ttest_ind
 ## Support nie uśredniony tylko dla wsadu + test hipotez || proby niezal.
 ## ttest ind
 
-
-
 n_chunks = 200
 epochs = 150
 
