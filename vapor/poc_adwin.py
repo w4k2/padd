@@ -3,7 +3,7 @@ from sklearn.neural_network import MLPClassifier
 from strlearn.streams import StreamGenerator
 from sklearn.metrics import balanced_accuracy_score
 import matplotlib.pyplot as plt
-from methods import certaintyEns, get_real_drifts
+from vapor.methods import certaintyEns, get_real_drifts
 from ceADWIN import ceADWIN
 
 n_chunks = 200

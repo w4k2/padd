@@ -4,7 +4,7 @@ from sklearn.naive_bayes import GaussianNB
 from strlearn.streams import StreamGenerator
 from sklearn.metrics import balanced_accuracy_score
 import matplotlib.pyplot as plt
-from methods import certaintyEns, get_real_drifts
+from vapor.methods import certaintyEns, get_real_drifts
 from skmultiflow.meta import LeverageBagging
 from Protocol import Protocol
 from sklearn.base import clone
