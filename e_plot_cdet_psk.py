@@ -31,7 +31,7 @@ for ch_s_id, ch_s in enumerate(_chunk_size):
 
             fig, ax = plt.subplots(6, 5, figsize=(20,10), sharex=True, sharey=True)
             plt.suptitle('chunk_size: %i | features: %i' % (ch_s, n_f))
-                
+            
             for arch_id, arch in enumerate(_architectures):
                 for a_id, a in enumerate(_alpha):
                     
