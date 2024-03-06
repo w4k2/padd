@@ -42,7 +42,8 @@ for ch_s_id, ch_s in enumerate(_chunk_size):
 
                     
                     temp = res[:, ch_s_id, n_f_id, arch_id, a_id]
-                    temp = temp.swapaxes(1,2).reshape(-1,500)
+                    temp = temp.swapaxes(0,1).reshape(-1,500)
+                    # temp = temp.reshape(-1,500)
                     print(temp.shape)
                     
                     ax[arch_id, a_id].imshow(temp, cmap='binary', aspect='auto')
