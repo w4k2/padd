@@ -1,15 +1,9 @@
 import numpy as np
 from sklearn.neural_network import MLPClassifier
-from sklearn.naive_bayes import GaussianNB
 from strlearn.streams import StreamGenerator
-from sklearn.metrics import balanced_accuracy_score
 import matplotlib.pyplot as plt
-from scipy.ndimage import gaussian_filter1d
-import time
 from scipy.stats import ttest_ind
 
-
-## Klasyfikator szkolony do określonego MPS
 
 
 n_chunks = 500
