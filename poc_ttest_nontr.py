@@ -5,14 +5,24 @@ import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind
 
 
+"""
+- centyle w ttest
+- mlp -- albo dużo mlp albo jeden dyży 
+- mlp oszukać ze umie
+
+opcjonalnie /  alternatywne:
+- etykiery z klasteryzacji
+
+"""
+
+
+
 
 n_chunks = 500
 real_drifts = np.linspace(0,n_chunks,11)[:-1]
 real_drifts += (real_drifts[1]/2)
 
-mps_th=0.85
 n_cl = 2
-
 
 stream = StreamGenerator(n_chunks=n_chunks,
                          chunk_size=300,
