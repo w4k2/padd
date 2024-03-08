@@ -2,6 +2,45 @@ import numpy as np
 from sklearn.base import clone
 from scipy.stats import ttest_ind
 
+def softmax(x):
+    """Compute softmax values for each sets of scores in x."""
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+
+def relu(x):
+    return x * (x > 0)
+
+class RandomSight():
+    def __init__(self, n_features, n_outputs, neck_width=512):
+        self.n_features = n_features
+        self.n_outputs = n_outputs
+        self.neck_width = neck_width
+        
+        self.stack = [
+            np.random.normal(0,.1,
+                             (self.n_features+1,
+                              self.neck_width)),
+            np.random.normal(0,.1,
+                             (self.neck_width,
+                              self.neck_width)),
+            np.random.normal(0,.1,
+                             (self.neck_width,
+                              self.n_outputs)),
+        ]
+    
+    def predict_proba(self, X):
+        # Copy input
+        val = np.concatenate((np.copy(X), 
+                              np.ones((X.shape[0], 1))), axis=1)
+        # Propagate through layers
+        for layer_id, layer in enumerate(self.stack):
+            val = relu(val @ layer)
+        
+        # Calculate softmax
+        predict_proba = val
+        predict_proba = np.array([softmax(v) for v in val])
+        
+        return predict_proba
 
 class CDET:
     def __init__(self, base_mlp, n_epochs, alpha, mps_th, balanced=False, psk=True):
