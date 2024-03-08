@@ -11,11 +11,9 @@ from scipy.stats import ttest_ind
 - mlp oszukać ze umie
 
 opcjonalnie /  alternatywne:
-- etykiery z klasteryzacji
+- etykiety z klasteryzacji
 
 """
-
-
 
 
 n_chunks = 500
@@ -35,10 +33,8 @@ stream = StreamGenerator(n_chunks=n_chunks,
                          concept_sigmoid_spacing=999)
 
 clf = MLPClassifier(hidden_layer_sizes=(10))
-# clf = GaussianNB()
 
 res = []
-# res_observed = []
 sup = []
 p_vals = []
 
@@ -46,7 +42,6 @@ drifts = []
 detected = True
 
 prevs = []
-
 alpha=0.02
 
 for chunk_id in range(n_chunks):
@@ -76,7 +71,6 @@ for chunk_id in range(n_chunks):
             prevs.append(ps)
         
         sup.append(np.mean(ps))
-        
             
     # train
     print(drifts, detected)
