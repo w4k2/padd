@@ -24,7 +24,7 @@ pbar = tqdm(total = reps*len(_n_drifts)
             *len(_chunk_size)*len(_n_features)
             *len(_concept_sigmoid_spacing)*len(_n_classes)*_n_chunks)
 
-n_methods = 5
+n_methods = 6
 res_dets = np.zeros((reps,len(_n_drifts),len(_chunk_size),
                      len(_n_features),len(_concept_sigmoid_spacing),
                      len(_n_classes),n_methods,_n_chunks))
@@ -54,6 +54,7 @@ for r_id, rs in enumerate(random_states):
                             MD3(sigma=0.15),
                             OneClassDriftDetector(size = ch_s, dim = n_f, percent = 0.85, nu=0.5),
                             CentroidDistanceDriftDetector(sensitive=0.2),
+                            CDET(alpha=0.006, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
                             CDET(alpha=0.012, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
                             CDET(alpha=0.024, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
                             ]
