@@ -52,11 +52,11 @@ for r_id, rs in enumerate(random_states):
                                                         
                         dets = [
                             MD3(sigma=0.15),
-                            OneClassDriftDetector(size = ch_s, dim = n_f, percent = 0.85, nu=0.5),
+                            OneClassDriftDetector(size = ch_s, dim = n_f, percent = 0.7, nu=0.5),
                             CentroidDistanceDriftDetector(sensitive=0.2),
-                            CDET(alpha=0.006, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
-                            CDET(alpha=0.012, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
-                            CDET(alpha=0.024, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
+                            CDET(alpha=0.025, ensemble_size=35, n_replications=20, stat_proba=75, neck_width=256),
+                            CDET(alpha=0.05, ensemble_size=35, n_replications=20, stat_proba=75, neck_width=256),
+                            CDET(alpha=0.075, ensemble_size=35, n_replications=20, stat_proba=75, neck_width=256),
                             ]
                         
                         for chunk_id in range(_n_chunks):
