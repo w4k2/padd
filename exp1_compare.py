@@ -71,9 +71,10 @@ for r_id, rs in enumerate(random_states):
                                     res_dets[r_id, n_d_id, ch_s_id, n_f_id, conc_ss_id, n_cl_id, d_id, chunk_id] = 1
 
                             pbar.update(1)
+                        print(r_id, n_d, ch_s, n_f, conc_ss, n_cl)
                         print(np.sum(res_dets[r_id, n_d_id, ch_s_id, n_f_id, conc_ss_id, n_cl_id], axis=1))
 
-                    np.save('res/exp1_comp.npy', res_dets)
+                        np.save('res/exp1_comp.npy', res_dets)
                                                 
                                     
                                 
