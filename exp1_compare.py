@@ -8,10 +8,10 @@ from reference.MD3 import MD3
 
 np.random.seed(12221)
 
-_n_chunks = 500
+_n_chunks = 250
 _n_informative_fraction = 0.3
 
-_n_drifts = [5, 10, 15, 25]
+_n_drifts = [3, 5, 10, 15]
 _chunk_size = [100, 250, 500]
 _n_features = [20, 40, 80, 120]
 _concept_sigmoid_spacing = [5, 999]
@@ -54,8 +54,8 @@ for r_id, rs in enumerate(random_states):
                             MD3(sigma=0.15),
                             OneClassDriftDetector(size = ch_s, dim = n_f, percent = 0.85, nu=0.5),
                             CentroidDistanceDriftDetector(sensitive=0.2),
-                            CDET(alpha=0.012, ensemble_size=30, n_replications=35, stat_proba=200, neck_width=512),
-                            CDET(alpha=0.012, ensemble_size=20, n_replications=20, stat_proba=200, neck_width=128),
+                            CDET(alpha=0.012, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
+                            CDET(alpha=0.024, ensemble_size=35, n_replications=20, stat_proba=200, neck_width=512),
                             ]
                         
                         for chunk_id in range(_n_chunks):
