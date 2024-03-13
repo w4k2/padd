@@ -1,5 +1,4 @@
 import numpy as np
-from sklearn.base import clone
 from scipy.stats import ttest_ind
 
 def relu(x):
@@ -40,7 +39,7 @@ class RandomSight():
     
     
 class CDET:
-    def __init__(self, alpha=0.01, ensemble_size=10, n_replications=15, stat_proba = 200, neck_width = 128):
+    def __init__(self, alpha=0.012, ensemble_size=30, n_replications=35, stat_proba = 200, neck_width = 512):
         
         self.alpha=alpha
         self.ensemble_size = ensemble_size      # wielkość zespołu detektorów
