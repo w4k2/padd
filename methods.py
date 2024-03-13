@@ -48,13 +48,13 @@ class CDET:
         self.neck_width =  neck_width
                 
         self.past_probas = [[] for _ in range(self.ensemble_size)]
-        self.is_drift = None # on init
+        self._is_drift = None # on init
 
     def process(self, X):
         
         # Init
-        if self.is_drift is None:
-            self.is_drift = False
+        if self._is_drift is None:
+            self._is_drift = False
             self.model = RandomSight(n_features=X.shape[1], n_outputs=self.ensemble_size, neck_width=self.neck_width)
 
         self.current_probas = self.model.predict_proba(X)
@@ -83,11 +83,11 @@ class CDET:
             # print(indications)
             if np.sum(indications) > 0:
                 # Indicate drift
-                self.is_drift = True
+                self._is_drift = True
                 # Reset past probas
                 self.past_probas = [[] for _ in range(self.ensemble_size)]
             else:
-                self.is_drift = False
+                self._is_drift = False
         
         # Składowanie wsparć
         for member_id, probas in enumerate(self.current_probas.T):

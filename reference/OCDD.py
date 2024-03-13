@@ -18,13 +18,13 @@ class OneClassDriftDetector():
         self.clf = svm.OneClassSVM(nu=self.nu, kernel="rbf", gamma='auto')
         self.first = True
         
+        self.is_drift_inner = False
         self._is_drift = False
-        self._is_drift_chunk = False
         self.i = 0
         
     def process(self, X):
         
-        self._is_drift_chunk = False
+        self._is_drift = False
         for instance in X:
             
             if self.first == True:
@@ -42,13 +42,13 @@ class OneClassDriftDetector():
                     self.drift_count = self.drift_count + 1
                     
                     # drift
+                    self.is_drift_inner = True
                     self._is_drift = True
-                    self._is_drift_chunk = True
                     self.clf.fit(self.getCurrentData())
                     
                 else:
                     # no drift  
-                    self._is_drift = False
+                    self.is_drift_inner = False
                     self.addInstance(instance.reshape(1,-1))
             
     def addInstance(self, instance):
