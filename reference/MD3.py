@@ -28,7 +28,7 @@ class MD3:
             if self.rho > self.rho_max:
                 self.rho_max = self.rho
                 
-            print(self.rho_max - self.rho_min)
+            # print(self.rho_max - self.rho_min)
             if self.rho_max - self.rho_min > self.sigma:
                 self._is_drift = True
                 self.first = True
