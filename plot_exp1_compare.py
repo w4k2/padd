@@ -33,7 +33,7 @@ for conc_ss_id, conc_ss in enumerate(_concept_sigmoid_spacing):
             
             temp = res_dets[:,:,ch_s_id,:,conc_ss_id,n_cl_id]
 
-            fig, ax = plt.subplots(len(_n_drifts), len(_n_features), figsize=(15,10))
+            fig, ax = plt.subplots(len(_n_drifts), len(_n_features), figsize=(20,10))
             plt.suptitle('CSS: %i | CH_S: %i | CL: %i' % (conc_ss, ch_s, n_cl))
             
             for n_d_id, n_d in enumerate(_n_drifts):            
@@ -43,6 +43,10 @@ for conc_ss_id, conc_ss in enumerate(_concept_sigmoid_spacing):
                     ax[n_d_id, n_f_id].imshow(aa, cmap='binary', aspect='auto')
                     ax[n_d_id, n_f_id].set_title('D:%i | F:%i' % (n_d, n_f))
                     ax[n_d_id, n_f_id].set_xticks(get_real_drfs(_n_chunks, n_d), ['%i' % a for a in get_real_drfs(_n_chunks, n_d)], rotation=90)
+                    ax[n_d_id, n_f_id].set_yticks([5,15,25,35,45],['MD3', 'OC', 'CD', 'CDET', 'CDETw'])
+                    ax[n_d_id, n_f_id].grid(ls=':')
+                    ax[n_d_id, n_f_id].spines['top'].set_visible(False)
+                    ax[n_d_id, n_f_id].spines['right'].set_visible(False)
                     
             plt.tight_layout()
             plt.savefig('foo.png')
