@@ -14,11 +14,11 @@ real_drifts = np.linspace(0,n_chunks,n_drifts+1)[:-1]
 real_drifts += (real_drifts[1]/2)
 
 stream = StreamGenerator(n_chunks=n_chunks,
-                        chunk_size=100,
+                        chunk_size=200,
                         n_drifts=n_drifts,
-                        n_classes=3,
-                        n_features=40,
-                        n_informative=7,
+                        n_classes=2,
+                        n_features=90,
+                        n_informative=30,
                         n_redundant=0,
                         n_repeated=0,
                         concept_sigmoid_spacing=900,
@@ -30,29 +30,26 @@ drifts_md3 = []
 drifts_ours = []
 
 cddd = CentroidDistanceDriftDetector(sensitive=0.2, distance_p=2, filter_size=3)
-ocdd = OneClassDriftDetector(size = 200, dim = 40, percent = 0.85, nu=0.5)
+ocdd = OneClassDriftDetector(size = 200, dim = 90, percent = 0.99, nu=0.5)
 md3 = MD3(sigma=0.15)
-cdet = CDET(alpha=0.17, ensemble_size=12, n_replications=12, stat_proba=75, neck_width=10, th=0.42)
+cdet = CDET(alpha=0.1, ensemble_size=12, n_replications=12, stat_proba=50, neck_width=10, th=0.23)
 
-    #   "alpha": 0.17251599310014315,
-    #   "th": 0.42545494151209146
-      
 for chunk_id in range(n_chunks):
     X, y = stream.get_chunk()
     
-    # cddd.process(X)
-    # ocdd.process(X)
-    # md3.process(X,y)
+    cddd.process(X)
+    ocdd.process(X)
+    md3.process(X,y)
     cdet.process(X)
     
-    # if cddd._is_drift == True:
-    #     drifts_cddd.append(chunk_id)
+    if cddd._is_drift == True:
+        drifts_cddd.append(chunk_id)
         
-    # if ocdd._is_drift == True:
-    #     drifts_ocdd.append(chunk_id)
+    if ocdd._is_drift == True:
+        drifts_ocdd.append(chunk_id)
         
-    # if md3._is_drift == True:
-    #     drifts_md3.append(chunk_id)
+    if md3._is_drift == True:
+        drifts_md3.append(chunk_id)
         
     if cdet._is_drift == True:
         drifts_ours.append(chunk_id)
