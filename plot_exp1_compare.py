@@ -8,9 +8,9 @@ def get_real_drfs(n_chunks, n_drifts):
     return real_drifts
 
 
-_n_chunks = 500
+_n_chunks = 250
 
-_n_drifts = [5, 10, 15, 25]
+_n_drifts = [3, 5, 10, 15]
 _chunk_size = [100, 250, 500]
 _n_features = [20, 40, 80, 120]
 _concept_sigmoid_spacing = [5, 999]
@@ -23,7 +23,7 @@ pbar = tqdm(total = reps*len(_n_drifts)
             *len(_chunk_size)*len(_n_features)
             *len(_concept_sigmoid_spacing)*len(_n_classes)*_n_chunks)
 
-n_methods = 5
+n_methods = 6
 res_dets = np.load('res/exp1_comp.npy') # replications, drifts, chunk size, features, concept sigmoid, classes, detections, chunks
 
 print(res_dets.shape)
@@ -43,11 +43,12 @@ for conc_ss_id, conc_ss in enumerate(_concept_sigmoid_spacing):
                     ax[n_d_id, n_f_id].imshow(aa, cmap='binary', aspect='auto')
                     ax[n_d_id, n_f_id].set_title('D:%i | F:%i' % (n_d, n_f))
                     ax[n_d_id, n_f_id].set_xticks(get_real_drfs(_n_chunks, n_d), ['%i' % a for a in get_real_drfs(_n_chunks, n_d)], rotation=90)
-                    ax[n_d_id, n_f_id].set_yticks([5,15,25,35,45],['MD3', 'OC', 'CD', 'CDET', 'CDETw'])
+                    ax[n_d_id, n_f_id].set_yticks([5,15,25,35,45,55],['MD3', 'OC', 'CD', 'CDETis', 'CDET', 'CDETs'])
                     ax[n_d_id, n_f_id].grid(ls=':')
                     ax[n_d_id, n_f_id].spines['top'].set_visible(False)
                     ax[n_d_id, n_f_id].spines['right'].set_visible(False)
                     
             plt.tight_layout()
             plt.savefig('foo.png')
-            exit()                    
+            plt.savefig('fig_uns/e1_css%i_cs%i_c%i.png' % (conc_ss, ch_s, n_cl))
+            # exit()                    
