@@ -6,6 +6,8 @@ from reference.CDDD import CentroidDistanceDriftDetector
 from reference.OCDD import OneClassDriftDetector
 from reference.MD3 import MD3
 
+np.random.seed(1410)
+
 _n_chunks = 250
 _chunk_size = 200
 _n_drifts = 10
@@ -44,8 +46,8 @@ for rs_id, rs in enumerate(random_states):
                     random_state=rs)
 
             dets = [
-                MD3(sigma=0.075),
-                OneClassDriftDetector(size = 250, dim = n_f, percent = 0.8, nu=0.5),
+                MD3(sigma=0.1),
+                OneClassDriftDetector(size = 250, dim = n_f, percent = 0.9, nu=0.5),
                 CentroidDistanceDriftDetector(sensitive = 0.2),
                 CDET(alpha=alphas[css_id], ensemble_size=_ensemble_size, n_replications=_replications,
                                             stat_proba=_stat_proba, neck_width=_neck_width, th=ths[css_id]),
