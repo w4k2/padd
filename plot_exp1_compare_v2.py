@@ -28,22 +28,21 @@ reps = 10
 n_methods = 4
 
 res_dets = np.load('res/exp1_comp_v2.npy') # replications, features, concept sigmoid, detectors, chunks
+res_dets_sup = np.load('res/exp1_comp_v2_sup.npy') # replications, features, concept sigmoid, detectors, chunks
+
+res_dets = np.concatenate((res_dets, res_dets_sup), axis=3)
 print(res_dets.shape)
 
 cm = plt.cm.binary(np.linspace(0,1,256))
 print(cm[-1], cm[0])
 cm[-1] = [1.,0.,0.,1.]
 
-# cm = plt.cm.binary(np.linspace(0,1,256))
-# print(cm[-1], cm[0])
-# cm[-10:] = plt.cm.Reds(np.linspace(0, 1, 10))
-# print(cm[-1], cm[0])
-
 cm = matplotlib.colors.LinearSegmentedColormap.from_list('colormap', cm)
 
-res_dets[:,:,:,:3][res_dets[:,:,:,:3]==1] = 0.8
+res_dets -= 0.2
+res_dets[:,:,:,3][res_dets[:,:,:,3]==0.8] = 1
 
-fig, ax = plt.subplots(len(_n_features), len(_concept_sigmoid_spacing), figsize=(10,7), sharex=True, sharey=True)
+fig, ax = plt.subplots(len(_n_features), len(_concept_sigmoid_spacing), figsize=(10,10), sharex=True, sharey=True)
 
 
 for n_f_id, n_f in enumerate(_n_features):
@@ -53,7 +52,7 @@ for n_f_id, n_f in enumerate(_n_features):
         ax[n_f_id, css_id].imshow(aa, cmap=cm, aspect='auto', interpolation='none')
         ax[n_f_id, css_id].set_title('CSS:%i | F:%i' % (css, n_f))
         ax[n_f_id, css_id].set_xticks(get_real_drfs(_n_chunks, _n_drifts), ['%i' % a for a in get_real_drfs(_n_chunks, _n_drifts)], rotation=90)
-        ax[n_f_id, css_id].set_yticks([5,15,25,35],['MD3', 'OC', 'CD', 'CDET'])
+        ax[n_f_id, css_id].set_yticks(np.arange(10,80,10),['MD3', 'OC', 'CD', 'CDET', 'ADWIN', 'DDM', 'EDDM'])
         ax[n_f_id, css_id].grid(ls=':')
         ax[n_f_id, css_id].spines['top'].set_visible(False)
         ax[n_f_id, css_id].spines['right'].set_visible(False)
