@@ -43,21 +43,18 @@ for n_f_id, n_f in enumerate(_n_features):
 mean_results = np.mean(results, axis=0)             
 print(mean_results.shape)
 
-mean_results = mean_results.reshape(-1,7,3)
+mean_results = mean_results.swapaxes(0,1).reshape(-1,7,3)
 print(mean_results.shape)
 
 mean_results[np.isinf(mean_results)] = np.nan
-str_names = str_names.reshape(-1)
+str_names = str_names.swapaxes(0,1).reshape(-1)
 
     
-fig, ax = plt.subplots(2, 2, figsize=(10,10), sharex=True, sharey=True)
+fig, ax = plt.subplots(2, 2, figsize=(14,10), sharex=True, sharey=True)
 ax = ax.ravel()
 
 ax[0].imshow(mean_results[:,:,0], cmap='coolwarm')
 ax[0].set_title('D1 - Detection from nearest drift')
-
-
-
 
 ax[1].imshow(mean_results[:,:,1], cmap='coolwarm')
 ax[1].set_title('D2 - Drift from nearest detection')
