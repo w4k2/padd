@@ -46,13 +46,18 @@ print(mean_results.shape)
 mean_results = mean_results.reshape(-1,7,3)
 print(mean_results.shape)
 
+mean_results[np.isinf(mean_results)] = np.nan
 str_names = str_names.reshape(-1)
 
     
-fig, ax = plt.subplots(1, 4, figsize=(15,4), sharex=True, sharey=True)
+fig, ax = plt.subplots(2, 2, figsize=(10,10), sharex=True, sharey=True)
+ax = ax.ravel()
 
 ax[0].imshow(mean_results[:,:,0], cmap='coolwarm')
 ax[0].set_title('D1 - Detection from nearest drift')
+
+
+
 
 ax[1].imshow(mean_results[:,:,1], cmap='coolwarm')
 ax[1].set_title('D2 - Drift from nearest detection')
@@ -67,11 +72,34 @@ for c in range(3):
     col[:,:,c]-=np.min(col[:,:,c])
     col[:,:,c]/=np.max(col[:,:,c])+0.00001
 ax[3].imshow(col)
-ax[3].set_title('Combined measures')
+ax[3].set_title('Combined measures (normalized)')
 
 for aa in ax:
     aa.set_xticks(np.arange(7), ['MD3', 'OC', 'CD', 'CDET', 'ADWIN', 'DDM', 'EDDM'], rotation=90)
     aa.set_yticks(np.arange(6), str_names)
+    
+for i in range(3):
+    for _a in range(6):
+        for _b in range(7):
+            if np.isnan( mean_results[:,:,i][_a, _b]) == False:
+                ax[i].text(_b, _a, "%.3f" % (
+                    mean_results[:,:,i][_a, _b]
+                    ) , va='center', ha='center', 
+                        c='white' if mean_results[:,:,i][_a, _b] > 0.7*np.nanmax(mean_results[:,:,i]) 
+                        or mean_results[:,:,i][_a, _b] < 1.5*np.nanmin(mean_results[:,:,i]) 
+                        or (mean_results[:,:,i][_a, _b] < 0.7  and i==2)
+                        or (mean_results[:,:,i][_a, _b] < 10  and i==1)
+                        else 'black', 
+                        fontsize=11)
+
+mcol = np.mean(col, axis=2)
+for _a in range(6):
+    for _b in range(7):
+            ax[-1].text(_b, _a, "%.3f" % (
+                mcol[_a, _b]
+                ) , va='center', ha='center', 
+                    c='white',
+                    fontsize=11)
 
 plt.tight_layout()
 plt.savefig('foo.png')
