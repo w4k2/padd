@@ -54,13 +54,13 @@ fig, ax = plt.subplots(2, 2, figsize=(14,10), sharex=True, sharey=True)
 ax = ax.ravel()
 
 ax[0].imshow(mean_results[:,:,0], cmap='coolwarm')
-ax[0].set_title('D1 - Detection from nearest drift')
+ax[0].set_title('D1 - Detection from nearest drift', fontsize=15)
 
 ax[1].imshow(mean_results[:,:,1], cmap='coolwarm')
-ax[1].set_title('D2 - Drift from nearest detection')
+ax[1].set_title('D2 - Drift from nearest detection', fontsize=15)
 
 ax[2].imshow(mean_results[:,:,2], cmap='coolwarm')
-ax[2].set_title('R - Detections to drifts ratio')
+ax[2].set_title('R - Detections to drifts ratio', fontsize=15)
 
 col = np.copy(mean_results).astype(float)
 for c in range(3):
@@ -69,7 +69,7 @@ for c in range(3):
     col[:,:,c]-=np.min(col[:,:,c])
     col[:,:,c]/=np.max(col[:,:,c])+0.00001
 ax[3].imshow(col)
-ax[3].set_title('Combined measures (normalized)')
+ax[3].set_title('Combined measures (normalized)', fontsize=15)
 
 for aa in ax:
     aa.set_xticks(np.arange(7), ['MD3', 'OC', 'CD', 'CDET', 'ADWIN', 'DDM', 'EDDM'], rotation=90)
