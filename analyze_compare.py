@@ -48,7 +48,7 @@ mean_results[np.isinf(mean_results)] = np.nan
 str_names = str_names.swapaxes(0,1).reshape(-1)
 
     
-fig, ax = plt.subplots(2, 2, figsize=(14,10), sharex=True, sharey=True)
+fig, ax = plt.subplots(2, 2, figsize=(14,11), sharex=True, sharey=True)
 ax = ax.ravel()
 
 ax[0].imshow(mean_results[:,:,0], cmap='coolwarm')
