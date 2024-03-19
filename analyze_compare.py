@@ -1,7 +1,5 @@
 import numpy as np
-from tqdm import tqdm
 import matplotlib.pyplot as plt
-import matplotlib
 from utils import dderror, mask_to_indexes
 
 def get_real_drfs(n_chunks, n_drifts):
