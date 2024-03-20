@@ -80,10 +80,16 @@ for i in range(3):
                 ax[i].text(_b, _a, "%.3f" % (
                     mean_results[:,:,i][_a, _b]
                     ) , va='center', ha='center', 
-                        c='white' if mean_results[:,:,i][_a, _b] > 0.7*np.nanmax(mean_results[:,:,i]) 
-                        or mean_results[:,:,i][_a, _b] < 1.5*np.nanmin(mean_results[:,:,i]) 
-                        or (mean_results[:,:,i][_a, _b] < 0.7  and i==2)
-                        or (mean_results[:,:,i][_a, _b] < 10  and i==1)
+                        c='white' 
+                        if (
+                        i==0 and 
+                          (mean_results[:,:,i][_a, _b] > 30 or mean_results[:,:,i][_a, _b] < 10))
+                        or (
+                        i==1 and 
+                          (mean_results[:,:,i][_a, _b] > 100 or mean_results[:,:,i][_a, _b] < 10))
+                        or (
+                        i==2 and
+                          (mean_results[:,:,i][_a, _b] > 10 or mean_results[:,:,i][_a, _b] < 1.7))
                         else 'black', 
                         fontsize=11)
 
