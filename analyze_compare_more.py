@@ -94,3 +94,4 @@ for _a in range(24):
 
 plt.tight_layout()
 plt.savefig('foo.png')
+plt.savefig('fig_exp1/errs.png')
