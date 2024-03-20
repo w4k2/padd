@@ -31,7 +31,7 @@ _neck_width = 10
 reps = 10
 random_states = np.random.randint(100,10000,reps)
 
-pbar = tqdm(total = reps*len(_n_features)*len(_concept_sigmoid_spacing)**len(_n_drifts)*_n_chunks)
+pbar = tqdm(total = reps*len(_n_features)*len(_concept_sigmoid_spacing)*len(_n_drifts)*_n_chunks)
 res_dets = np.zeros((reps, len(_n_features), len(_concept_sigmoid_spacing), len(_n_drifts), 7, _n_chunks))
 
 for rs_id, rs in enumerate(random_states):
