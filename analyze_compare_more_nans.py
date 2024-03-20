@@ -36,8 +36,8 @@ for n_f_id, n_f in enumerate(_n_features):
                     results[r, n_f_id, css_id, n_d_id, method_id] = errs                
 
 results[np.isinf(results)] = np.nan
-for eid in range(3):
-    results[:,:,:,:,:,eid][np.isnan(results[:,:,:,:,:,eid])] = np.nanmax(results[:,:,:,:,:,eid])
+# for eid in range(3):
+#     results[:,:,:,:,:,eid][np.isnan(results[:,:,:,:,:,eid])] = np.nanmax(results[:,:,:,:,:,eid])
     
 mean_results = np.mean(results, axis=0)
 print(mean_results.shape)
@@ -62,10 +62,10 @@ ax[2].set_title('R - Detections to drifts ratio', fontsize=15)
 
 col = np.copy(mean_results).astype(float)
 for c in range(3):
-    # col[:,:,c][np.isinf(col[:,:,c])]=np.nan
-    # col[:,:,c][np.isnan(col[:,:,c])]=np.nanmax(col[:,:,c])
-    col[:,:,c]-=np.min(col[:,:,c])
-    col[:,:,c]/=np.max(col[:,:,c])+0.00001
+    col[:,:,c]-=np.nanmin(col[:,:,c])
+    col[:,:,c]/=np.nanmax(col[:,:,c])+0.00001
+
+col[np.isnan(col)] = 1
 ax[3].imshow(col, aspect='auto')
 ax[3].set_title('Combined measures (normalized)', fontsize=15)
 
@@ -98,4 +98,4 @@ for _a in range(24):
 
 plt.tight_layout()
 plt.savefig('foo.png')
-plt.savefig('fig_exp1/errs.png')
+plt.savefig('fig_exp1/errs_nans.png')
