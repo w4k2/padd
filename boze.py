@@ -1,5 +1,5 @@
 import numpy as np
-from strlearn.streams import SemiSyntheticStreamGenerator
+from strlearn.streams import StreamGenerator
 from tqdm import tqdm
 from methods import CDET
 import os
@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import time
 from scipy.stats import ttest_ind
 
-np.random.seed(9299)
+np.random.seed(73276)
 
 def relu(x):
     return x * (x > 0)   
@@ -99,31 +99,43 @@ _n_drifts = 20
 reps = 5
 random_states = np.random.randint(100,10000,reps)
 
-dataset_names = os.listdir('static_data')
-try: 
-    dataset_names.remove('.DS_Store')
-except:
-    print(dataset_names)
+# dataset_names = os.listdir('static_data')
+# try: 
+#     dataset_names.remove('.DS_Store')
+# except:
+#     print(dataset_names)
 
-data = np.loadtxt('static_data/%s' % dataset_names[3], delimiter=',')
-X, y = data[:,:-1], data[:,-1]
-print(X.shape, y.shape)
+# # data = np.loadtxt('static_data/%s' % dataset_names[3], delimiter=',')
+# # X, y = data[:,:-1], data[:,-1]
+# print(X.shape, y.shape)
                     
-stream = SemiSyntheticStreamGenerator(
-    X, y,
-    n_chunks=_n_chunks,
-    chunk_size=_chunk_size,
-    n_drifts=_n_drifts,
-    n_features=2,
-    interpolation='cubic',
-    random_state=None)
+# stream = SemiSyntheticStreamGenerator(
+#     X, y,
+#     n_chunks=_n_chunks,
+#     chunk_size=_chunk_size,
+#     n_drifts=_n_drifts,
+#     n_features=2,
+#     interpolation='cubic',
+#     random_state=None)
 
-aa=50
+                    
+stream = StreamGenerator(
+        n_chunks=_n_chunks,
+        chunk_size=_chunk_size,
+        n_drifts=10,
+        n_classes=2,
+        n_features=2,
+        n_informative=2,
+        n_clusters_per_class=1,
+        n_redundant=0,
+        n_repeated=0)
 
-d = CDET(ensemble_size=9)
+aa=5
+
+d = CDET(ensemble_size=800)
 
 
-fig, axx = plt.subplots(3,3,figsize=(10,10), sharex=True, sharey=True)
+fig, axx = plt.subplots(1,4,figsize=(12,3), sharex=True, sharey=True)
 for chunk_id in range(_n_chunks):
     X, y = stream.get_chunk()
     
@@ -138,24 +150,25 @@ for chunk_id in range(_n_chunks):
     print(proba.shape)
     
     max_std_s_ids = np.argsort(np.std(proba, axis=0))
+    max_std_s_ids = max_std_s_ids[::80]
     
     ###
     
-    for i, ax in enumerate(axx.ravel()):
+    for i, ax in enumerate(axx):
         ax.scatter(space[:,0], space[:,1], c=proba[:,max_std_s_ids[i]], 
-                   cmap='magma', alpha=1, s=50)
+                   cmap='coolwarm', alpha=1, s=50)
         
         ax.scatter(X[:,0], X[:,1], c='white', marker='o', s=1)
 
         ax.set_xlim(-aa,aa)
         ax.set_ylim(-aa,aa)
-        ax.set_xticks([])
-        ax.set_yticks([])
+        # ax.set_xticks([])
+        # ax.set_yticks([])
         
     plt.tight_layout()
     plt.savefig('foo.png')
-    plt.savefig('trash/%04d.png' % chunk_id)
-    # exit()
+    # plt.savefig('trash/%04d.png' % chunk_id)
+    exit()
     
     ax.cla()
     # time.sleep(0.3)

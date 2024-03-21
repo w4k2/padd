@@ -61,7 +61,7 @@ for n_f_id, n_f in enumerate(_n_features):
             rr[:,:,c] /= np.max(rr[:,:,c]) 
         # print(rr)  
         # exit()
-        ax[n_f_id, data_id].imshow(rr[:,:,:], aspect='auto', cmap='coolwarm')
+        ax[n_f_id, data_id].imshow(rr[:,:,:], aspect='auto', cmap='coolwarm', interpolation='none')
         ax[n_f_id, data_id].set_title('F:%i | %s' % (n_f, data_name))
         ax[n_f_id, data_id].set_yticks(np.arange(len(_alpha)), ['%.3f' % a for a in _alpha])
         ax[n_f_id, data_id].set_xticks(np.arange(len(_th)), ['%.3f' % a for a in _th])
