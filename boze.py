@@ -105,7 +105,7 @@ try:
 except:
     print(dataset_names)
 
-data = np.loadtxt('static_data/%s' % dataset_names[2], delimiter=',')
+data = np.loadtxt('static_data/%s' % dataset_names[3], delimiter=',')
 X, y = data[:,:-1], data[:,-1]
 print(X.shape, y.shape)
                     
@@ -118,9 +118,9 @@ stream = SemiSyntheticStreamGenerator(
     interpolation='cubic',
     random_state=None)
 
-aa=5
+aa=50
 
-d = CDET(ensemble_size=20)
+d = CDET(ensemble_size=9)
 
 
 fig, axx = plt.subplots(3,3,figsize=(10,10), sharex=True, sharey=True)
@@ -129,7 +129,7 @@ for chunk_id in range(_n_chunks):
     
     d.process(X)
     
-    space_x = np.linspace(-aa, aa, 100)
+    space_x = np.linspace(-aa, aa, 50)
     xx, yy = np.meshgrid(space_x, space_x)
     space = np.vstack((xx.flatten(), yy.flatten())).swapaxes(0,1)
     print(space.shape)
@@ -142,16 +142,20 @@ for chunk_id in range(_n_chunks):
     ###
     
     for i, ax in enumerate(axx.ravel()):
-        ax.scatter(space[:,0], space[:,1], c=proba[:,max_std_s_ids[i]], cmap='coolwarm', alpha=0.25)
+        ax.scatter(space[:,0], space[:,1], c=proba[:,max_std_s_ids[i]], 
+                   cmap='magma', alpha=1, s=50)
         
         ax.scatter(X[:,0], X[:,1], c='white', marker='o', s=1)
 
         ax.set_xlim(-aa,aa)
         ax.set_ylim(-aa,aa)
+        ax.set_xticks([])
+        ax.set_yticks([])
         
     plt.tight_layout()
     plt.savefig('foo.png')
     plt.savefig('trash/%04d.png' % chunk_id)
+    # exit()
     
     ax.cla()
     # time.sleep(0.3)
