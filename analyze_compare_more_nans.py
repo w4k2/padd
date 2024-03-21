@@ -45,13 +45,13 @@ str_names = str_names.swapaxes(0,1).reshape(-1)
 
 fig, ax = plt.subplots(1, 3, figsize=(20,10), sharex=True, sharey=True)
 
-ax[0].imshow(mean_results[:,:,0], cmap='coolwarm', aspect='auto')
+ax[0].imshow(mean_results[:,:,0], cmap='coolwarm', aspect='auto', vmin=0, vmax=30)
 ax[0].set_title('D1 - Detection from nearest drift', fontsize=15)
 
-ax[1].imshow(mean_results[:,:,1], cmap='coolwarm', aspect='auto')
+ax[1].imshow(mean_results[:,:,1], cmap='coolwarm', aspect='auto', vmin=0, vmax=30)
 ax[1].set_title('D2 - Drift from nearest detection', fontsize=15)
 
-ax[2].imshow(mean_results[:,:,2], cmap='coolwarm', aspect='auto')
+ax[2].imshow(mean_results[:,:,2], cmap='coolwarm', aspect='auto', vmin=0, vmax=1)
 ax[2].set_title('R - Detections to drifts ratio', fontsize=15)
 
 for aa in ax:
@@ -68,13 +68,13 @@ for i in range(3):
                         c='white' 
                         if (
                         i==0 and 
-                          (mean_results[:,:,i][_a, _b] > 30 or mean_results[:,:,i][_a, _b] < 10))
+                          (mean_results[:,:,i][_a, _b] > 30 or mean_results[:,:,i][_a, _b] < 3))
                         or (
                         i==1 and 
-                          (mean_results[:,:,i][_a, _b] > 100 or mean_results[:,:,i][_a, _b] < 10))
+                          (mean_results[:,:,i][_a, _b] > 80 or mean_results[:,:,i][_a, _b] < 3))
                         or (
                         i==2 and
-                          (mean_results[:,:,i][_a, _b] > 10 or mean_results[:,:,i][_a, _b] < 1.7))
+                          (mean_results[:,:,i][_a, _b] > 0.9 or mean_results[:,:,i][_a, _b] < .07))
                         else 'black', 
                         fontsize=11)
 
