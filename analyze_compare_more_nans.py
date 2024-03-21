@@ -24,7 +24,7 @@ str_names = np.zeros((3,2,4)).astype('object')
 for n_f_id, n_f in enumerate(_n_features):
     for css_id, css in enumerate(_concept_sigmoid_spacing):
         for n_d_id, n_d in enumerate(_n_drifts):
-            str_names[n_f_id, css_id] = ('F: %02d | CSS: %03d | D: %02d' % (n_f, css, n_d))
+            str_names[n_f_id, css_id, n_d_id] = ('F: %02d | CSS: %03d | D: %02d' % (n_f, css, n_d))
             
             for r in range(reps):
                 for method_id in range(7):
@@ -35,21 +35,15 @@ for n_f_id, n_f in enumerate(_n_features):
                     # print(errs)
                     results[r, n_f_id, css_id, n_d_id, method_id] = errs                
 
-results[np.isinf(results)] = np.nan
-# for eid in range(3):
-#     results[:,:,:,:,:,eid][np.isnan(results[:,:,:,:,:,eid])] = np.nanmax(results[:,:,:,:,:,eid])
-    
 mean_results = np.mean(results, axis=0)
 print(mean_results.shape)
 
 mean_results = mean_results.swapaxes(0,1).reshape(-1,7,3)
 print(mean_results.shape)
 
-# mean_results[np.isinf(mean_results)] = np.nan
 str_names = str_names.swapaxes(0,1).reshape(-1)
 
-fig, ax = plt.subplots(1, 4, figsize=(24,11), sharex=True, sharey=True)
-# ax = ax.ravel()
+fig, ax = plt.subplots(1, 3, figsize=(20,10), sharex=True, sharey=True)
 
 ax[0].imshow(mean_results[:,:,0], cmap='coolwarm', aspect='auto')
 ax[0].set_title('D1 - Detection from nearest drift', fontsize=15)
@@ -59,15 +53,6 @@ ax[1].set_title('D2 - Drift from nearest detection', fontsize=15)
 
 ax[2].imshow(mean_results[:,:,2], cmap='coolwarm', aspect='auto')
 ax[2].set_title('R - Detections to drifts ratio', fontsize=15)
-
-col = np.copy(mean_results).astype(float)
-for c in range(3):
-    col[:,:,c]-=np.nanmin(col[:,:,c])
-    col[:,:,c]/=np.nanmax(col[:,:,c])+0.00001
-
-col[np.isnan(col)] = 1
-ax[3].imshow(col, aspect='auto')
-ax[3].set_title('Combined measures (normalized)', fontsize=15)
 
 for aa in ax:
     aa.set_xticks(np.arange(7), ['MD3', 'OC', 'CD', 'CDET', 'ADWIN', 'DDM', 'EDDM'], rotation=90)
@@ -92,15 +77,6 @@ for i in range(3):
                           (mean_results[:,:,i][_a, _b] > 10 or mean_results[:,:,i][_a, _b] < 1.7))
                         else 'black', 
                         fontsize=11)
-
-mcol = np.mean(col, axis=2)
-for _a in range(24):
-    for _b in range(7):
-            ax[-1].text(_b, _a, "%.3f" % (
-                mcol[_a, _b]
-                ) , va='center', ha='center', 
-                    c='white' if mcol[_a, _b]<0.5 else 'black',
-                    fontsize=11)
 
 plt.tight_layout()
 plt.savefig('foo.png')
