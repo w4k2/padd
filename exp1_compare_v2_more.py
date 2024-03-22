@@ -23,6 +23,12 @@ _concept_sigmoid_spacing = [5, 999]
  
 alphas = [0.13, 0.07] # for css 5, 999
 ths = [0.26, 0.19] # for css 5, 999
+
+oc_percentage = [0.75, 0.9, 0.999] # for 30. 60, 90 features
+md3_sigma = [0.15, 0.1, 0.08] # for 30. 60, 90 features
+
+cd_sensitivity = [0.2, 0.2, 0.9, 0.9] # for 3, 5, 10, 15 drifts
+
 _ensemble_size = 12
 _replications = 12
 _stat_proba = 50
@@ -51,15 +57,15 @@ for rs_id, rs in enumerate(random_states):
                         random_state=rs)
 
                 dets = [
-                    MD3(sigma=0.1),
-                    OneClassDriftDetector(size = 250, dim = n_f, percent = 0.9, nu=0.5),
-                    CentroidDistanceDriftDetector(sensitive = 0.2),
+                    MD3(sigma=md3_sigma[n_f_id]),
+                    OneClassDriftDetector(size = 250, dim = n_f, percent = oc_percentage[n_f_id], nu=0.5),
+                    CentroidDistanceDriftDetector(sensitive = cd_sensitivity[n_d_id]),
                     CDET(alpha=alphas[css_id], ensemble_size=_ensemble_size, n_replications=_replications,
                                                 stat_proba=_stat_proba, neck_width=_neck_width, th=ths[css_id]),
                     MetaClassifier(base_clf=GaussianNB(), detector=ADWIN()),
                     MetaClassifier(base_clf=GaussianNB(), detector=DDM()),
                     MetaClassifier(base_clf=GaussianNB(), detector=EDDM())
-                ]       
+                ]
                 
                 
                 for chunk_id in range(_n_chunks):
@@ -94,7 +100,7 @@ for rs_id, rs in enumerate(random_states):
                 print(rs_id, n_f_id, css_id, n_d_id, d_id)
                 print(np.sum(res_dets[rs_id, n_f_id, css_id, n_d_id], axis=1))
 
-                np.save('res/exp1_comp_v2_more.npy', res_dets)
+                np.save('res/exp1_comp_final.npy', res_dets)
                                         
                                         
                                     

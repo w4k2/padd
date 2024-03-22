@@ -306,7 +306,8 @@ _n_drifts = [3, 5, 10, 15]
 reps = 10
 n_methods = 4
 
-res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
+# res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
+res_dets = np.load('res/exp1_comp_final.npy') # replications, features, concept sigmoid, detectors, chunks
 
 results = np.zeros((10,3,2,4,7,3))
 
@@ -350,5 +351,6 @@ for metric_id in range(3):
     cd = compute_CD(av_ranks, res.shape[0])
 
     graph_ranks(av_ranks, method_names, cd=cd, width=6, textspace=1.5)
+    plt.savefig("fig_exp1/cd_%i.png" % metric_id)
     plt.savefig("fig_exp1/cd_%i.eps" % metric_id)
     plt.savefig("foo.png")

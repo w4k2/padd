@@ -21,7 +21,8 @@ ths = [0.26, 0.19] # for css 5, 999
 reps = 10
 n_methods = 4
 
-res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
+# res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
+res_dets = np.load('res/exp1_comp_final.npy') # replications, features, concept sigmoid, detectors, chunks
 print(res_dets.shape)
 
 cm = plt.cm.binary(np.linspace(0,1,256))

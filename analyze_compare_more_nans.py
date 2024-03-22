@@ -16,7 +16,8 @@ _n_drifts = [3, 5, 10, 15]
 reps = 10
 n_methods = 4
 
-res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
+# res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
+res_dets = np.load('res/exp1_comp_final.npy') # replications, features, concept sigmoid, detectors, chunks
 
 results = np.zeros((10,3,2,4,7,3))
 str_names = np.zeros((3,2,4)).astype('object')
