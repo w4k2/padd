@@ -161,7 +161,7 @@ axx = plt.subplot(2,1,2)
 for i in range(4):
     axx.plot(str_probas[:,i], color = plt.cm.coolwarm(np.linspace(0,1,4))[i], label = 'output %i' % i)
     
-axx.legend(frameon=False, loc=2, ncol=4)
+axx.legend(frameon=False, loc=9, ncol=4)
 
 drfs = get_real_drfs(_n_chunks, 10)
 axx.set_xticks(drfs, drfs.astype(int))
