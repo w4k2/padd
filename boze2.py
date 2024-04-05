@@ -141,7 +141,7 @@ str_probas = np.array(str_probas)
 print(str_probas, str_probas.shape)
 
 
-fig, ax = plt.subplots(2,4,figsize=(12,6), sharex=True, sharey=True)
+fig, ax = plt.subplots(2,4,figsize=(12,6), sharex=True, sharey=True, dpi=300)
 
 for i in range(4):
     ax[0,i].set_title('output %i' % i)
@@ -151,7 +151,7 @@ for i in range(4):
 
     ax[0,1].grid(ls=':')
     
-    ax[0,i].scatter(X[:,0], X[:,1], c='white', marker='x', s=1)
+    ax[0,i].scatter(X[:,0], X[:,1], c='white', marker='x', s=10)
 
     ax[0,i].set_xlim(-aa,aa)
     ax[0,i].set_ylim(-aa,aa)
