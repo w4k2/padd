@@ -148,26 +148,33 @@ for i in range(4):
 
     ax[0,i].scatter(space[:,0], space[:,1], c=proba[:,i], 
                 cmap='coolwarm', alpha=1, s=50)
+
+    ax[0,1].grid(ls=':')
     
-    ax[0,i].scatter(X[:,0], X[:,1], c='white', marker='o', s=1)
+    ax[0,i].scatter(X[:,0], X[:,1], c='white', marker='x', s=1)
 
     ax[0,i].set_xlim(-aa,aa)
     ax[0,i].set_ylim(-aa,aa)
     
     ax[1,i].set_xticks([])
     ax[1,i].set_yticks([])
+    ax[1,i].spines['top'].set_visible(False)
+    ax[1,i].spines['right'].set_visible(False)
 
 axx = plt.subplot(2,1,2)
 for i in range(4):
-    axx.plot(str_probas[:,i], color = plt.cm.coolwarm(np.linspace(0,1,4))[i], label = 'output %i' % i)
+    axx.plot(str_probas[:,i], color = 'black', ls=['-', ':', '--', '-.'][i], label = 'output %i' % i, lw=1)
     
 axx.legend(frameon=False, loc=9, ncol=4)
+axx.spines['top'].set_visible(False)
+axx.spines['right'].set_visible(False)
 
 drfs = get_real_drfs(_n_chunks, 10)
 axx.set_xticks(drfs, drfs.astype(int))
-r = 0.003
+r = 0.0025
 axx.set_ylim(np.min(str_probas)-0.3*r, np.max(str_probas)+r)
 axx.grid(ls=':')
+axx.set_xlim(0,250)
 
 plt.tight_layout()
 plt.savefig('foo.png')

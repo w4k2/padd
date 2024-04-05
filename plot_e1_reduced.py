@@ -73,7 +73,7 @@ fig, ax = plt.subplots(1,2,figsize=(10,5), sharey=True)
 
 s = 1.2
 ax[0].plot(_alpha, gaussian_filter(rr[:,th_id,0],s), label= 'D1', color='red')
-ax[0].plot(_alpha, gaussian_filter(rr[:,th_id,1],s), label= 'D2', color='orange')
+ax[0].plot(_alpha, gaussian_filter(rr[:,th_id,1],s), label= 'D2', color='forestgreen')
 ax[0].plot(_alpha, gaussian_filter(rr[:,th_id,2],s), label= 'R', color='cornflowerblue')
 
 # ax[0].legend(frameon=False)
@@ -85,7 +85,7 @@ ax[0].text(_alpha[0], 1, 'threshold = %0.3f' % _th[th_id])
 ####
 
 ax[1].plot(_th, gaussian_filter(rr[a_id,:,0],s), label= 'D1', color='red')
-ax[1].plot(_th, gaussian_filter(rr[a_id,:,1],s), label= 'D2', color='orange')
+ax[1].plot(_th, gaussian_filter(rr[a_id,:,1],s), label= 'D2', color='forestgreen')
 ax[1].plot(_th, gaussian_filter(rr[a_id,:,2],s), label= 'R', color='cornflowerblue')
 
 ax[1].legend(frameon=False)
