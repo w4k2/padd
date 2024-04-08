@@ -62,7 +62,7 @@ for css_id, css in enumerate(_concept_sigmoid_spacing):
         rr[:,:,c] /= np.max(rr[:,:,c]) 
     # print(rr)  
     # exit()
-    ax[css_id].imshow(rr[:,:,:], aspect='auto', cmap='coolwarm')
+    ax[css_id].imshow(rr[:,:,:], aspect='auto', cmap='coolwarm', origin='lower')
     ax[css_id].set_title('F:%i | CSS:%i' % (n_f, css))
     ax[css_id].set_yticks(np.arange(len(_alpha)), ['%.2f' % a for a in _alpha])
     ax[css_id].set_xticks(np.arange(len(_th)), ['%.2f' % a for a in _th])
@@ -82,5 +82,6 @@ for css_id, css in enumerate(_concept_sigmoid_spacing):
 plt.tight_layout()
 plt.savefig('foo.png')
 plt.savefig('fig_exp1/exp0_mini.png')
+plt.savefig('fig_exp1/exp0_mini.eps')
 
 # time.sleep(2)

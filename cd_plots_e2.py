@@ -339,7 +339,7 @@ for metric_id in range(3):
     # Tutaj powinny być wyniki o kształcie: (zbiory, metody)
     res = mean_results[:,:,metric_id]
 
-    method_names = ['MD3', 'OC', 'CDET', 'ADWIN', 'DDM', 'EDDM']
+    method_names = ['MD3', 'OCDD', 'PADD', 'ADWIN', 'DDM', 'EDDM']
 
     ranks = []
 
