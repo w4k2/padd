@@ -31,10 +31,6 @@
 - `plot_e1.py` – script preparing visualization for Figure X.
 - `plot_e2.py` – script preparing visualization for Figure X.
 
----
-
-- `test_reference.py` – ?
-- `test_supervised.py` – ?
 
 ## Processing artifacts
 
