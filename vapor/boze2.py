@@ -1,6 +1,6 @@
 import numpy as np
 from strlearn.streams import StreamGenerator
-from methods import CDET
+from methods import PADD
 import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind
 
@@ -14,7 +14,7 @@ def get_real_drfs(n_chunks, n_drifts):
 def relu(x):
     return x * (x > 0)   
     
-class CDET:
+class PADD:
     def __init__(self, alpha=0.05, ensemble_size=30, n_replications=35, stat_proba = 75, neck_width = 10, th = 0.17):
         
         self.alpha=alpha
@@ -111,7 +111,7 @@ stream = StreamGenerator(
 
 aa=5
 
-d = CDET(ensemble_size=4)
+d = PADD(ensemble_size=4)
 
 str_probas = []
 

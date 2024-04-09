@@ -1,15 +1,15 @@
 from ConfigSpace import Configuration, ConfigurationSpace
 import numpy as np
-from methods import CDET
+from methods import PADD
 from smac import HyperparameterOptimizationFacade, Scenario
 from strlearn.streams import StreamGenerator
 
 def test_detections(config: Configuration, seed=None) -> float:
-    # det = CDET(alpha=config["alpha"], ensemble_size=config["ensemble_size"], 
+    # det = PADD(alpha=config["alpha"], ensemble_size=config["ensemble_size"], 
     #            n_replications=config["replications"], stat_proba=config["stat_proba"], 
     #            neck_width=10, th=config["th"])
     
-    det = CDET(alpha=config["alpha"], ensemble_size=12, 
+    det = PADD(alpha=config["alpha"], ensemble_size=12, 
                n_replications=12, stat_proba=75, 
                neck_width=10, th=config["th"])
     

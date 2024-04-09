@@ -1,7 +1,7 @@
 import numpy as np
 from strlearn.streams import StreamGenerator
 from tqdm import tqdm
-from methods import CDET
+from methods import PADD
 import os
 import matplotlib.pyplot as plt
 import time
@@ -12,7 +12,7 @@ np.random.seed(73276)
 def relu(x):
     return x * (x > 0)   
     
-class CDET:
+class PADD:
     def __init__(self, alpha=0.05, ensemble_size=30, n_replications=35, stat_proba = 75, neck_width = 10, th = 0.17):
         
         self.alpha=alpha
@@ -132,7 +132,7 @@ stream = StreamGenerator(
 
 aa=5
 
-d = CDET(ensemble_size=800)
+d = PADD(ensemble_size=800)
 
 
 fig, axx = plt.subplots(1,4,figsize=(12,3), sharex=True, sharey=True)

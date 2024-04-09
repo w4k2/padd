@@ -6,7 +6,7 @@ from detectors.adwin import ADWIN
 from detectors.ddm import DDM
 from detectors.eddm import EDDM
 from detectors.meta import MetaClassifier
-from methods import CDET
+from methods import PADD
 from reference.CDDD import CentroidDistanceDriftDetector
 from reference.OCDD import OneClassDriftDetector
 from reference.MD3 import MD3
@@ -60,7 +60,7 @@ for rs_id, rs in enumerate(random_states):
                     MD3(sigma=md3_sigma[n_f_id]),
                     OneClassDriftDetector(size = 250, dim = n_f, percent = oc_percentage[n_f_id], nu=0.5),
                     CentroidDistanceDriftDetector(sensitive = cd_sensitivity[n_d_id]),
-                    CDET(alpha=alphas[css_id], ensemble_size=_ensemble_size, n_replications=_replications,
+                    PADD(alpha=alphas[css_id], ensemble_size=_ensemble_size, n_replications=_replications,
                                                 stat_proba=_stat_proba, neck_width=_neck_width, th=ths[css_id]),
                     MetaClassifier(base_clf=GaussianNB(), detector=ADWIN()),
                     MetaClassifier(base_clf=GaussianNB(), detector=DDM()),

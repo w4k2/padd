@@ -1,7 +1,7 @@
 import numpy as np
 from strlearn.streams import StreamGenerator
 from tqdm import tqdm
-from methods import CDET
+from methods import PADD
 
 _n_chunks = 250
 _chunk_size = 200
@@ -44,7 +44,7 @@ for rs_id, rs in enumerate(random_states):
             detectors = []
             for a_id, a in enumerate(_alpha):            
                 for th_id, th in enumerate(_th):     
-                    detectors.append(CDET(alpha=a,  ensemble_size=_ensemble_size, n_replications=_replications,
+                    detectors.append(PADD(alpha=a,  ensemble_size=_ensemble_size, n_replications=_replications,
                                             stat_proba=_stat_proba, neck_width=_neck_width, th=th))
 
             for chunk_id in range(_n_chunks):

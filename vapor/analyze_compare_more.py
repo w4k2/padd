@@ -70,7 +70,7 @@ ax[3].imshow(col, aspect='auto')
 ax[3].set_title('Combined measures (normalized)', fontsize=15)
 
 for aa in ax:
-    aa.set_xticks(np.arange(7), ['MD3', 'OC', 'CD', 'CDET', 'ADWIN', 'DDM', 'EDDM'], rotation=90)
+    aa.set_xticks(np.arange(7), ['MD3', 'OC', 'CD', 'PADD', 'ADWIN', 'DDM', 'EDDM'], rotation=90)
     aa.set_yticks(np.arange(24), str_names)
     
 for i in range(3):
