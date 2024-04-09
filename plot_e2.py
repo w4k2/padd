@@ -33,21 +33,35 @@ res_dets -= 0.2
 res_dets[:,:,:,:,3][res_dets[:,:,:,:,3]==0.8] = 1
 
 for n_d_id, n_d in enumerate(_n_drifts):
-    fig, ax = plt.subplots(len(_n_features), len(_concept_sigmoid_spacing), figsize=(10,10), sharex=True, sharey=True)
+    fig, ax = plt.subplots(len(_concept_sigmoid_spacing), len(_n_features), figsize=(10,10/1.618), sharex=True, sharey=True)
     plt.suptitle('%i drifts' % n_d, fontsize=15)
 
     for n_f_id, n_f in enumerate(_n_features):
         for css_id, css in enumerate(_concept_sigmoid_spacing):
                     
             aa = res_dets[:, n_f_id, css_id, n_d_id].swapaxes(0,1).reshape(-1,_n_chunks)
-            ax[n_f_id, css_id].imshow(aa, cmap=cm, aspect='auto', interpolation='none')
-            ax[n_f_id, css_id].set_title('CSS:%i | F:%i' % (css, n_f))
-            ax[n_f_id, css_id].set_xticks(get_real_drfs(_n_chunks, n_d), ['%i' % a for a in get_real_drfs(_n_chunks, n_d)], rotation=90)
-            ax[n_f_id, css_id].set_yticks(np.arange(5,75,10),['MD3', 'OCDD', 'CDDD', 'PADD', 'ADWIN', 'DDM', 'EDDM'])
-            ax[n_f_id, css_id].hlines(np.arange(10,80,10), 0, _n_chunks, lw=1, ls=':', color='gray')
-            ax[n_f_id, css_id].grid(ls=':')
-            ax[n_f_id, css_id].spines['top'].set_visible(False)
-            ax[n_f_id, css_id].spines['right'].set_visible(False)
+            
+            # Scatter preparation
+            aau = np.unique(aa)
+            a = np.array(np.where(aa==aau[1]))
+            b = np.array(np.where(aa==aau[2]))
+            
+            # ax[n_f_id, css_id].imshow(aa, cmap=cm, aspect='auto', interpolation='none')
+            ax[css_id, n_f_id].imshow([[0]], cmap=cm, aspect='auto', interpolation='none')
+            ax[css_id, n_f_id].scatter(a[1], a[0], s=10, c='black', marker='|')
+            ax[css_id, n_f_id].scatter(b[1], b[0], s=10, c='red', marker='|')
+            
+            ax[css_id, n_f_id].set_title('CSS:%i | F:%i' % (css, n_f))
+            ax[css_id, n_f_id].set_title('%s drifts on %i features' % (['sudden', 'gradual'][css==5], n_f))
+
+            ax[css_id, n_f_id].set_xticks(get_real_drfs(_n_chunks, n_d), ['%i' % a for a in get_real_drfs(_n_chunks, n_d)], rotation=90)
+            ax[css_id, n_f_id].set_yticks(np.arange(5,75,10),['MD3', 'OCDD', 'CDDD', 'PADD', 'ADWIN', 'DDM', 'EDDM'])
+            ax[css_id, n_f_id].hlines(np.arange(10,80,10), 0, _n_chunks, lw=1, ls=':', color='gray')
+            ax[css_id, n_f_id].grid(ls=':')
+            ax[css_id, n_f_id].spines['top'].set_visible(False)
+            ax[css_id, n_f_id].spines['right'].set_visible(False)
+            ax[css_id, n_f_id].spines['bottom'].set_visible(False)
+            ax[css_id, n_f_id].spines['left'].set_visible(False)
             
             plt.tight_layout()
             plt.savefig('foo.png')

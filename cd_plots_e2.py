@@ -205,7 +205,7 @@ def graph_ranks(avranks, names, cd=None, cdmethod=None, lowv=None, highv=None,
         ax.plot(wfl(nth(l, 0)), hfl(nth(l, 1)), color=color, **kwargs)
 
     def text(x, y, s, *args, **kwargs):
-        ax.text(wf * x, hf * y, s, *args, **kwargs)
+        ax.text(wf * x, hf * y, s, *args, **kwargs, fontsize=16)
 
     line([(textspace, cline), (width - textspace, cline)], linewidth=0.7)
 
