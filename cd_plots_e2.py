@@ -351,6 +351,6 @@ for metric_id in range(3):
     cd = compute_CD(av_ranks, res.shape[0])
 
     graph_ranks(av_ranks, method_names, cd=cd, width=6, textspace=1.5)
-    plt.savefig("fig_exp1/cd_%i.png" % metric_id)
-    plt.savefig("fig_exp1/cd_%i.eps" % metric_id)
+    plt.savefig("fig/cd_%i.png" % metric_id)
+    plt.savefig("fig/cd_%i.eps" % metric_id)
     plt.savefig("foo.png")

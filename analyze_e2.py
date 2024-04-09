@@ -83,5 +83,5 @@ for i in range(3):
 
 plt.tight_layout()
 plt.savefig('foo.png')
-plt.savefig('fig_exp1/errs_nans.png')
-plt.savefig('fig_exp1/errs_nans.eps')
+plt.savefig('fig/errs_nans.png')
+plt.savefig('fig/errs_nans.eps')

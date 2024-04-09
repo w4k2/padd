@@ -103,7 +103,7 @@ for aa in ax:
 
 plt.tight_layout()
 plt.savefig('foo.png')
-plt.savefig('fig_exp1/exp0_red.png')
-plt.savefig('fig_exp1/exp0_red.eps')
+plt.savefig('fig/exp0_red.png')
+plt.savefig('fig/exp0_red.eps')
 
 # time.sleep(2)

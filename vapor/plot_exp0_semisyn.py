@@ -80,6 +80,6 @@ for n_f_id, n_f in enumerate(_n_features):
 
 plt.tight_layout()
 plt.savefig('foo.png')
-plt.savefig('fig_exp1/exp0_semisyn.png')
+plt.savefig('fig/exp0_semisyn.png')
 
 # time.sleep(2)

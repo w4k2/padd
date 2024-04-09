@@ -81,7 +81,7 @@ for css_id, css in enumerate(_concept_sigmoid_spacing):
 
 plt.tight_layout()
 plt.savefig('foo.png')
-plt.savefig('fig_exp1/exp0_mini.png')
-plt.savefig('fig_exp1/exp0_mini.eps')
+plt.savefig('fig/exp0_mini.png')
+plt.savefig('fig/exp0_mini.eps')
 
 # time.sleep(2)

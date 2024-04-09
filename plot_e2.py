@@ -65,6 +65,6 @@ for n_d_id, n_d in enumerate(_n_drifts):
             
             plt.tight_layout()
             plt.savefig('foo.png')
-            plt.savefig('fig_exp1/exp1_all_%id.png' % n_d)
-            plt.savefig('fig_exp1/exp1_all_%id.eps' % n_d)
+            plt.savefig('fig/exp1_all_%id.png' % n_d)
+            plt.savefig('fig/exp1_all_%id.eps' % n_d)
             # exit()                    
