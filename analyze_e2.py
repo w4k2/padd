@@ -46,6 +46,8 @@ str_names = str_names.swapaxes(0,1).reshape(-1)
 
 fig, ax = plt.subplots(1, 3, figsize=(15,8), sharex=True, sharey=True)
 
+mr = mean_results[:,:,0]
+mr[np.isnan(mr)] = 15
 ax[0].imshow(mean_results[:,:,0], cmap='coolwarm', aspect='auto', vmin=0, vmax=30)
 ax[0].set_title('D1 - Detection from nearest drift', fontsize=15)
 
