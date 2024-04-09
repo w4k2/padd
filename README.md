@@ -8,6 +8,35 @@
   <source src="output.mp4" type="video/mp4">
 </video>
 
-# Organisation of a repository
+## How to replicate experiments?
 
-- 
+
+
+## Organisation of a repository
+
+### Main elements
+
+- `e1.py` – main loop of preliminary experiment.
+- `e2.py` - main loop of comparative experiment.
+
+- `methods.py` – impementation of proposed PADD method.
+- `detectors` directory – implementation of `MetaClassifier`, enabling processing of comparative experiments and supervised drift detectors (`ADWIN`, `DDM` and `EDDM`) adapted to chunk-based evaluation protocol.
+- `reference` directory – implementations of unsupervised drift detectors (`CDDD`, `MD3` and `CDDD`).
+- `utils.py` – functional implementation of employed drift detection metrics and set of helper functions for implementation of experiments.
+
+- `analyze_e2.py` – analysis of comparative experiment preparing processing artifacts for interpretation.
+- `cd_plots_e2.py` – a *Critical Difference* test for comparative experiment.
+- `plot_e1_mini.py` – script preparing visualization for Figure X.
+- `plot_e1_reduced.py` – script preparing visualization for Figure X.
+- `plot_e1.py` – script preparing visualization for Figure X.
+- `plot_e2.py` – script preparing visualization for Figure X.
+
+---
+
+- `test_reference.py` – ?
+- `test_supervised.py` – ?
+
+## Processing artifacts
+
+- `res` directory – storage for results of conducted experiments
+- `fig*` directories – illustrations for the paper and supplementary materials
