@@ -46,7 +46,6 @@ for n_d_id, n_d in enumerate(_n_drifts):
             a = np.array(np.where(aa==aau[1]))
             b = np.array(np.where(aa==aau[2]))
             
-            # ax[n_f_id, css_id].imshow(aa, cmap=cm, aspect='auto', interpolation='none')
             ax[css_id, n_f_id].imshow([[0]], cmap=cm, aspect='auto', interpolation='none')
             ax[css_id, n_f_id].scatter(a[1], a[0], s=10, c='black', marker='|')
             ax[css_id, n_f_id].scatter(b[1], b[0], s=10, c='red', marker='|')

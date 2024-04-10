@@ -7,12 +7,12 @@ def relu(x):
 class PADD:
     def __init__(self, alpha=0.05, ensemble_size=30, n_replications=35, stat_proba = 75, neck_width = 10, th = 0.17):
         
-        self.alpha=alpha
-        self.ensemble_size = ensemble_size      # wielkość zespołu detektorów
-        self.n_replications = n_replications    # liczba replikacji testu
-        self.stat_proba = stat_proba            # liczba obiektów losowanych do testu
-        self.neck_width =  neck_width
-        self.th = th
+        self.alpha=alpha                        # ttest significance level
+        self.ensemble_size = ensemble_size      # number of NN outputs (e)
+        self.n_replications = n_replications    # number of ttest replications (r)
+        self.stat_proba = stat_proba            # sample size (s)
+        self.neck_width =  neck_width           # size of a hidden layer in NN
+        self.th = th                            # threshold for detection
                 
         self.past_probas = [[] for _ in range(self.ensemble_size)]
         self._is_drift = None # on init
@@ -36,14 +36,14 @@ class PADD:
         self.current_probas = self._predict_proba(X)
     
         if len(self.past_probas[0]) > 0:
-            # Dla każdego członka zespołu
+            # For each NN output
             indications = np.zeros((self.ensemble_size, self.n_replications))
             for member_id, (_past, current) in enumerate(zip(self.past_probas,
                                                                 self.current_probas.T)):
-                # Konkatenujemy przeszłe próbki
+                # combine past samples
                 past = np.concatenate(_past)
                 
-                # Replikujemy pomiar p-value
+                # replicate the p-value measurement
                 for repliaction_id in range(self.n_replications):
                     a = np.random.choice(past, self.stat_proba)
                     b = np.random.choice(current, self.stat_proba)
@@ -51,20 +51,17 @@ class PADD:
                     stat, pval = ttest_ind(a, b)
                     indications[member_id, repliaction_id] = pval<self.alpha
               
-            # print('sum', np.sum(indications))
             th = self.th*self.ensemble_size*self.n_replications
-            # print(th, np.sum(indications))
 
             if np.sum(indications) > th:
                 # Indicate drift
                 self._is_drift = True
-                # print('drf')
                 # Reset past probas
                 self.past_probas = [[] for _ in range(self.ensemble_size)]
             else:
                 self._is_drift = False
         
-        # Składowanie wsparć
+        # Remember activations
         for member_id, probas in enumerate(self.current_probas.T):
             self.past_probas[member_id].append(probas)
             

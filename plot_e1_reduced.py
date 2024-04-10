@@ -7,18 +7,12 @@ _n_chunks = 250
 _n_drifts = 10
 
 _n_features = [30, 60, 90]
-_concept_sigmoid_spacing = [5, 999]
  
 _alpha = np.linspace(0.03, 0.2, 15)
 _th = np.linspace(0.1, 0.3, 10)
 
 reps = 10
-
-res_dets = np.load('res/mini_exp_v2.npy')
-print(np.sum(res_dets))
-
-print(res_dets.shape) 
-   
+res_dets = np.load('res/mini_exp_v2.npy')   
 
 n_f_id = 1
 n_f = _n_features[n_f_id]
@@ -105,5 +99,3 @@ plt.tight_layout()
 plt.savefig('foo.png')
 plt.savefig('fig/exp0_red.png')
 plt.savefig('fig/exp0_red.eps')
-
-# time.sleep(2)

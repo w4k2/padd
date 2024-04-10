@@ -1,4 +1,4 @@
-# Unsupervised Concept Drift Detection based on Parallel Activations of NeuralNetwork
+# Unsupervised Concept Drift Detection based on Parallel Activations of Neural Network
 
 ### Abstract
 
@@ -10,7 +10,9 @@
 
 ## How to replicate experiments?
 
+The experiment code is available in scripts `e1.py` for hyperparameter calibration and `e2.py` for method comparison. The rerefence methods are implemented in `reference` (unsupervised) and `detectors` (supervised) directories. 
 
+To replicate the experiments, it is possible to run the experimental code of `e1.py` and `e2.py`. This will generate files in `res` directory.
 
 ## Organisation of a repository
 

@@ -306,7 +306,6 @@ _n_drifts = [3, 5, 10, 15]
 reps = 10
 n_methods = 4
 
-# res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
 res_dets = np.load('res/exp1_comp_final.npy') # replications, features, concept sigmoid, detectors, chunks
 
 results = np.zeros((10,3,2,4,7,3))
@@ -325,10 +324,10 @@ for n_f_id, n_f in enumerate(_n_features):
                     results[r, n_f_id, css_id, n_d_id, method_id] = errs                
 
 mean_results = np.mean(results, axis=0)                
-mean_results = mean_results.reshape(-1,7,3) # zbiory, metody, metryki
+mean_results = mean_results.reshape(-1,7,3) # datasets, methods, metrics
 print(mean_results.shape)
 
-# pozbyć się metody kuby
+# remove cddd
 mean_results = mean_results[:,[0,1,3,4,5,6]]
 print(mean_results.shape)
 
@@ -336,7 +335,6 @@ print(mean_results.shape)
 
 for metric_id in range(3):
 
-    # Tutaj powinny być wyniki o kształcie: (zbiory, metody)
     res = mean_results[:,:,metric_id]
 
     method_names = ['MD3', 'OCDD', 'PADD', 'ADWIN', 'DDM', 'EDDM']

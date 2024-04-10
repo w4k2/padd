@@ -1,14 +1,10 @@
 import numpy as np
-from tqdm import tqdm
 import matplotlib.pyplot as plt
-import time
 
 from utils import mask_to_indexes, dderror, find_real_drift
 
 _n_chunks = 250
-_chunk_size = 200
 _n_drifts = 10
-_n_informative_fraction = 0.3
 
 _n_features = [30, 60, 90]
 _concept_sigmoid_spacing = [5, 999]
@@ -84,4 +80,3 @@ plt.savefig('foo.png')
 plt.savefig('fig/exp0_mini.png')
 plt.savefig('fig/exp0_mini.eps')
 
-# time.sleep(2)

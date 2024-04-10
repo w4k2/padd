@@ -55,7 +55,7 @@ for rs_id, rs in enumerate(random_states):
                     
                     a_id = int(d_id/len(_th))
                     th_id = d_id%len(_th)
-                    # print(a_id, th_id)
+
                     if d._is_drift:
                         res_dets[rs_id, n_f_id, css_id, a_id, th_id, chunk_id] = 1
                 
@@ -63,7 +63,7 @@ for rs_id, rs in enumerate(random_states):
                 pbar.update(1)
                                         
                 print(np.sum(res_dets[rs_id, n_f_id, css_id], axis=2))
-            # exit()
+
             np.save('res/mini_exp_v2.npy', res_dets)
                                             
                                                     

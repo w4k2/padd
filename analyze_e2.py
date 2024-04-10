@@ -10,13 +10,11 @@ def get_real_drfs(n_chunks, n_drifts):
 _n_chunks = 250
 
 _n_features = [30, 60, 90]
-_concept_sigmoid_spacing = [5, 999]
 _n_drifts = [3, 5, 10, 15]
  
 reps = 10
 n_methods = 4
 
-# res_dets = np.load('res/exp1_comp_v2_more.npy') # replications, features, concept sigmoid, detectors, chunks
 res_dets = np.load('res/exp1_comp_final.npy') # replications, features, concept sigmoid, detectors, chunks
 
 results = np.zeros((10,3,2,4,7,3))
