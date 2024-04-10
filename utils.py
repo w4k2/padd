@@ -1,7 +1,6 @@
 import numpy as np
 
 def dderror(drifts_idx, detections_idx):
-    
 
     if len(detections_idx) == 0: # no detections
         return np.inf, np.inf, np.inf
