@@ -28,13 +28,12 @@ To replicate the experiments, it is possible to run the experimental code of `e1
 
 - `analyze_e2.py` – analysis of comparative experiment preparing processing artifacts for interpretation.
 - `cd_plots_e2.py` – a *Critical Difference* test for comparative experiment.
-- `plot_e1_mini.py` – script preparing visualization for Figure X.
-- `plot_e1_reduced.py` – script preparing visualization for Figure X.
-- `plot_e1.py` – script preparing visualization for Figure X.
-- `plot_e2.py` – script preparing visualization for Figure X.
+- `plot_e1.py` – script preparing visualization for Figure 1 in supplementary material.
+- `plot_e1_reduced.py` – script preparing visualization for Figure 2 in supplementary material .
+- `plot_e2.py` – script preparing visualization for Figures 3-6 in supplementary material and Figure 2 in main article.
 
 
 ## Processing artifacts
 
 - `res` directory – storage for results of conducted experiments
-- `fig*` directories – illustrations for the paper and supplementary materials
+- `fig` directory – illustrations for the paper and supplementary materials
