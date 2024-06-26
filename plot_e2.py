@@ -42,7 +42,7 @@ for css_id, css in enumerate(_concept_sigmoid_spacing):
         conceptsss[css_id,d_id] = (s.concept_probabilities)
 
 for css_id, css in enumerate(_concept_sigmoid_spacing):
-    fig, ax = plt.subplots(len(_n_drifts), len(_n_features), figsize=(12, 15), sharey=True)
+    fig, ax = plt.subplots(len(_n_drifts), len(_n_features), figsize=(12, 12), sharey=True)
     # fig.suptitle("%s" % ('sudden' if css==999 else 'gradual'), fontsize=12)
 
     for f_id, f in enumerate(_n_features):
