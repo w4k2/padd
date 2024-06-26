@@ -56,15 +56,15 @@ for n_f_id, n_f in enumerate(_n_features):
             rr[:,:,c] /= np.max(rr[:,:,c]) 
         # print(rr)  
         # exit()
-        ax[n_f_id, css_id].imshow(rr[:,:,:], aspect='auto', cmap='coolwarm')
-        ax[n_f_id, css_id].set_title('%i dim | %s' % (n_f, 'sudden' if css==999 else 'gradual'))
-        ax[n_f_id, css_id].set_yticks(np.arange(len(_alpha)), ['%.2f' % a for a in _alpha])
-        ax[n_f_id, css_id].set_xticks(np.arange(len(_th)), ['%.2f' % a for a in _th])
+        ax[n_f_id, 1-css_id].imshow(rr[:,:,:], aspect='auto', cmap='coolwarm')
+        ax[n_f_id, 1-css_id].set_title('%i dim | %s' % (n_f, 'sudden' if css==999 else 'gradual'))
+        ax[n_f_id, 1-css_id].set_yticks(np.arange(len(_alpha)), ['%.2f' % a for a in _alpha])
+        ax[n_f_id, 1-css_id].set_xticks(np.arange(len(_th)), ['%.2f' % a for a in _th])
         
         if css_id==0:
-            ax[n_f_id, css_id].set_ylabel('alpha')
+            ax[n_f_id, 1-css_id].set_ylabel('alpha')
         if n_f_id==2:
-            ax[n_f_id, css_id].set_xlabel('threshold')
+            ax[n_f_id, 1-css_id].set_xlabel('threshold')
        
         # rr_m = np.mean(rr, axis=2)
         # for _a in np.arange(len(_alpha)):

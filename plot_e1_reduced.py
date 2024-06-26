@@ -63,7 +63,7 @@ print(th_id, _th[th_id])
 a_id = np.argmin(np.min(np.mean(rr, axis=2), axis=0))
 print(a_id, _alpha[a_id])
 
-fig, ax = plt.subplots(1,2,figsize=(10,5), sharey=True)
+fig, ax = plt.subplots(1,2,figsize=(10,4), sharey=True)
 
 s = 1.2
 ax[0].plot(_alpha, gaussian_filter(rr[:,th_id,0],s), label= 'D1', color='red')
