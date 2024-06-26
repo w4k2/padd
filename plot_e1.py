@@ -19,7 +19,7 @@ print(np.sum(res_dets))
 
 print(res_dets.shape) 
    
-fig, ax = plt.subplots(3,2,figsize=(15,15), sharex=True, sharey=True)
+fig, ax = plt.subplots(3,2,figsize=(10,10), sharex=True, sharey=True)
 
 for n_f_id, n_f in enumerate(_n_features):
     for css_id, css in enumerate(_concept_sigmoid_spacing):
@@ -57,22 +57,25 @@ for n_f_id, n_f in enumerate(_n_features):
         # print(rr)  
         # exit()
         ax[n_f_id, css_id].imshow(rr[:,:,:], aspect='auto', cmap='coolwarm')
-        ax[n_f_id, css_id].set_title('F:%i | CSS:%i' % (n_f, css))
+        ax[n_f_id, css_id].set_title('%i dim | %s' % (n_f, 'sudden' if css==999 else 'gradual'))
         ax[n_f_id, css_id].set_yticks(np.arange(len(_alpha)), ['%.2f' % a for a in _alpha])
         ax[n_f_id, css_id].set_xticks(np.arange(len(_th)), ['%.2f' % a for a in _th])
         
-        ax[n_f_id, css_id].set_ylabel('alpha')
-        ax[n_f_id, css_id].set_xlabel('threshold')
+        if css_id==0:
+            ax[n_f_id, css_id].set_ylabel('alpha')
+        if n_f_id==2:
+            ax[n_f_id, css_id].set_xlabel('threshold')
        
-        rr_m = np.mean(rr, axis=2)
-        for _a in np.arange(len(_alpha)):
-            for _b in np.arange(len(_th)):
-                ax[n_f_id, css_id].text(_b, _a, "%.2f" % (
-                    rr_m[_a, _b]
-                    ) , va='center', ha='center', 
-                        c='white' if rr_m[_a, _b] < 0.5 
-                        else 'black', fontsize=11)
+        # rr_m = np.mean(rr, axis=2)
+        # for _a in np.arange(len(_alpha)):
+        #     for _b in np.arange(len(_th)):
+        #         ax[n_f_id, css_id].text(_b, _a, "%.2f" % (
+        #             rr_m[_a, _b]
+        #             ) , va='center', ha='center', 
+        #                 c='white' if rr_m[_a, _b] < 0.5 
+        #                 else 'black', fontsize=11)
 
 plt.tight_layout()
 plt.savefig('foo.png')
 plt.savefig('fig/exp0.png')
+plt.savefig('fig/exp0.eps')
