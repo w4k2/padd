@@ -1,10 +1,9 @@
 import numpy as np
 
-def dderror(drifts_idx, detections_idx):
+def dderror(drifts_idx, detections_idx, n_chunks):
 
     if len(detections_idx) == 0: # no detections
-        return np.inf, np.inf, np.inf
-
+        detections_idx = np.arange(n_chunks)
 
     n_detections = len(detections_idx)
     n_drifts = len(drifts_idx)

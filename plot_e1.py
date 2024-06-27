@@ -26,7 +26,7 @@ for n_f_id, n_f in enumerate(_n_features):
         
         aa = res_dets[:, n_f_id, css_id]
         
-        rr = np.zeros((len(_alpha),len(_th),3))
+        rr = np.zeros((len(_alpha),len(_th),3)).astype(float)
         
         for a_id in range(len(_alpha)):
             for th_id in range(len(_th)):
@@ -39,19 +39,20 @@ for n_f_id, n_f in enumerate(_n_features):
                     if len(this_dets_ids):
                         print(this_dets_ids)
                     
-                    dderr = dderror(find_real_drift(_n_chunks, _n_drifts),this_dets_ids)
+                    # print(find_real_drift(_n_chunks, _n_drifts), this_dets_ids, _n_chunks)
+                    dderr = dderror(find_real_drift(_n_chunks, _n_drifts), this_dets_ids, _n_chunks)
                     
                     reps_errs.append(dderr)
                 
                 reps_errs = np.array(reps_errs)
                 # print(reps_errs)
                 # exit()
-                reps_errs[np.isinf(reps_errs)] = np.nan
-                print(np.nanmean(reps_errs, axis=0))
-                rr[a_id, th_id] = np.nanmean(reps_errs, axis=0)
-                
+                # reps_errs[np.isinf(reps_errs)] = np.nan
+                # print(np.nanmean(reps_errs, axis=0))
+                rr[a_id, th_id] = np.mean(reps_errs, axis=0)
+        
+        
         for c in range(3):
-            rr[:,:,c][np.isnan(rr[:,:,c])] = np.nanmax(rr[:,:,c])
             rr[:,:,c] -= np.min(rr[:,:,c])      
             rr[:,:,c] /= np.max(rr[:,:,c]) 
         # print(rr)  
