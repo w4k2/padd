@@ -53,7 +53,7 @@ ax[1].imshow(mean_results[:,:,1], cmap='coolwarm', aspect='auto', vmin=0, vmax=3
 ax[1].set_title('D2 - Drift from nearest detection', fontsize=15)
 
 ax[2].imshow(mean_results[:,:,2], cmap='coolwarm', aspect='auto', vmin=0, vmax=1)
-ax[2].set_title('R - Detections to drifts ratio', fontsize=15)
+ax[2].set_title('R - Drifts to detections ratio', fontsize=15)
 
 for aa in ax:
     aa.set_xticks(np.arange(7), ['MD3', 'OCDD', 'CDDD', 'PADD', 'ADWIN', 'DDM', 'EDDM'], rotation=90)
