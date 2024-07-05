@@ -5,9 +5,6 @@ from utils import mask_to_indexes, dderror, find_real_drift
 
 _n_chunks = 250
 _n_drifts = 10
-
-_n_features = [30, 60, 90]
-_concept_sigmoid_spacing = [5, 999]
  
 _alpha = np.linspace(0.03, 0.2, 15)
 _th = np.linspace(0.1, 0.3, 10)
