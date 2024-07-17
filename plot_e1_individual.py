@@ -16,7 +16,7 @@ print(np.sum(res_dets))
 
 print(res_dets.shape) 
    
-fig, ax = plt.subplots(1,3,figsize=(10,5.5), sharex=True, sharey=True)
+fig, ax = plt.subplots(1,3,figsize=(10,5.5), sharex=True, sharey=True, dpi=100)
 
 aa = res_dets[:, 0, 1]
 
@@ -39,9 +39,9 @@ for a_id in range(len(_alpha)):
         reps_errs = np.array(reps_errs)
         rr[a_id, th_id] = np.mean(reps_errs, axis=0)
 
-ax[0].imshow(rr[:,:,0], cmap='bone')
-ax[1].imshow(rr[:,:,1], cmap='bone')
-ax[2].imshow(rr[:,:,2], cmap='bone')
+ax[0].imshow(rr[:,:,0], cmap='coolwarm')
+ax[1].imshow(rr[:,:,1], cmap='coolwarm')
+ax[2].imshow(rr[:,:,2], cmap='coolwarm')
 
 ax[0].set_title('D1 - Detection from nearest drift')
 ax[1].set_title('D2 - Drift from nearest detection')

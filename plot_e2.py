@@ -25,8 +25,8 @@ res_dets = np.load('res/exp1_comp_final.npy')
 print(res_dets.shape)
 # replications, features, concept sigmoid, n_drifts, detectors, chunks
 
-res_dets = res_dets[:,:,:,:,[0,1,3,4,5,6]]
-det_names = ['MD3', 'OCDD', 'PADD', 'ADWIN', 'DDM', 'EDDM']
+# res_dets = res_dets[:,:,:,:,[0,1,3,4,5,6]]
+det_names = ['MD3', 'OCDD', 'CDDD', 'PADD', 'ADWIN', 'DDM', 'EDDM']
 
 conceptsss = np.zeros((2, len(_n_drifts), 250*200))
 
@@ -42,7 +42,7 @@ for css_id, css in enumerate(_concept_sigmoid_spacing):
         conceptsss[css_id,d_id] = (s.concept_probabilities)
 
 for css_id, css in enumerate(_concept_sigmoid_spacing):
-    fig, ax = plt.subplots(len(_n_drifts), len(_n_features), figsize=(12, 12), sharey=True)
+    fig, ax = plt.subplots(len(_n_drifts), len(_n_features), figsize=(12, 13), sharey=True)
     # fig.suptitle("%s" % ('sudden' if css==999 else 'gradual'), fontsize=12)
 
     for f_id, f in enumerate(_n_features):
@@ -59,7 +59,7 @@ for css_id, css in enumerate(_concept_sigmoid_spacing):
                     stop = det*10 + step*(rep+1)
                     detections = np.argwhere(r[rep,det]==1).flatten()
                     
-                    aa.vlines(detections, start, stop, color='black' if det != 2 else 'red')
+                    aa.vlines(detections, start, stop, color='black' if det != 3 else 'red')
                     
             aa.plot(cps, conceptsss[css_id,d_id]*5-7.5, c='red')
             aa.grid(ls=":")

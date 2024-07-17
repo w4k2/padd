@@ -42,10 +42,17 @@ for n_f_id, n_f in enumerate(_n_features):
                     reps_errs.append(dderr)
                 
                 reps_errs = np.array(reps_errs)
+                reps_errs[np.isinf(reps_errs)] = np.nan
+                print(np.nanmean(reps_errs, axis=0))
+                rr[a_id, th_id] = np.nanmean(reps_errs, axis=0)
+
+                # reps_errs[np.isinf(reps_errs)] = np.nan
+                # print(np.nanmean(reps_errs, axis=0))
                 rr[a_id, th_id] = np.mean(reps_errs, axis=0)
-        
-        
+
+
         for c in range(3):
+            rr[:,:,c][np.isnan(rr[:,:,c])] = np.nanmax(rr[:,:,c])
             rr[:,:,c] -= np.min(rr[:,:,c])      
             rr[:,:,c] /= np.max(rr[:,:,c]) 
 

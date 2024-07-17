@@ -42,7 +42,7 @@ print(mean_results.shape)
 
 str_names = str_names.swapaxes(0,1).reshape(-1)
 
-fig, ax = plt.subplots(1, 3, figsize=(15,8), sharex=True, sharey=True)
+fig, ax = plt.subplots(1, 3, figsize=(15,8), sharex=True, sharey=True, dpi=100)
 
 mr = mean_results[:,:,0]
 mr[np.isnan(mr)] = 15
